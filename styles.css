@@ -28,13 +28,36 @@ body{
 }
 
 .calendar-wrap{max-width:1200px;margin:12px auto;padding:8px}
+.app-grid{display:flex;gap:18px;align-items:flex-start;flex-direction:row-reverse}
+.sidebar{
+  width:320px;
+  background:#ffffff;
+  border-radius:10px;
+  padding:16px;
+  box-shadow:var(--shadow);
+  border:1px solid rgba(11,22,39,0.03);
+  min-height:72vh;
+  display:flex;
+  flex-direction:column;
+}
+.sidebar h2{margin:0 0 10px 0;color:var(--accent)}
+.shopping-list{list-style:none;padding:6px 4px;margin:0;background:transparent;border-radius:6px}
+.shopping-list li{padding:10px 6px;margin:0;display:flex;justify-content:space-between;align-items:center;background:transparent;border-bottom:1px solid rgba(15,23,42,0.18)}
+.shopping-list li .count{opacity:.8;margin-left:8px;color:var(--muted)}
+
+/* hint style for empty list */
+.shopping-list .hint{opacity:.9;font-style:italic;color:var(--muted);padding-bottom:6px}
+
+/* placeholder ruled rows (empty) */
+.shopping-list .placeholder{min-height:28px;color:transparent}
+
 .week-grid{
   display:flex;
   flex-direction:column;
   gap:10px;
   padding:4px 0 8px 0;
-  max-width:1000px;
-  margin:0 auto;
+  width:100%;
+  flex:1;
 }
 .day{
   background:linear-gradient(180deg, var(--card), #fffefc);
