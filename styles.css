@@ -50,9 +50,22 @@ body{
 
 .meal-slot{display:flex;align-items:center;justify-content:space-between;border-radius:8px;padding:6px;background:transparent;overflow:hidden;margin-bottom:6px;border:1px solid rgba(0,0,0,0.04)}
 .meal-slot:last-child{margin-bottom:0}
-.slot-header{font-weight:600;font-size:.9rem;color:var(--accent-2);margin:0;margin-right:8px;flex:0 0 auto}
+.slot-header{font-weight:600;font-size:.9rem;color:var(--accent-2);margin:0;flex:0 0 120px;text-align:left}
 .meal-name{background:linear-gradient(90deg,#fff,#fff9f5);padding:8px;border-radius:8px;font-weight:600;color:#3a3a3a;transition:background .15s ease, transform .12s ease;flex:1;text-align:right}
 .meal-slot:hover .meal-name{background:linear-gradient(90deg,#fff8f0,#fff3f8);transform:translateY(-2px)}
+
+/* select used to pick a meal */
+.meal-select{
+  flex:1;
+  padding:8px;
+  border-radius:8px;
+  border:1px solid rgba(11,22,39,0.06);
+  background:linear-gradient(90deg,#fff,#fbfeff);
+  font-weight:600;
+  color:#0f172a;
+  text-align:left;
+}
+.meal-select:focus{outline:2px solid rgba(124,58,237,0.18)}
 
 .day{margin-bottom:6px}
 

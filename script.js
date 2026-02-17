@@ -9,15 +9,38 @@ document.addEventListener('DOMContentLoaded', ()=>{
     Sunday:    {breakfast: 'French toast', lunch: 'Roast chicken & veg', dinner: 'Leftover buffet'}
   };
 
+  // Unique list of available meal names
+  const availableMeals = Array.from(new Set(Object.values(meals).flatMap(d => Object.values(d))));
+
+  // For each slot, replace the meal-name element with a persistent <select>
   const dayEls = document.querySelectorAll('.day');
   dayEls.forEach(dayEl => {
-    const day = dayEl.dataset.day;
-    const plan = meals[day] || {breakfast:'—', lunch:'—', dinner:'—'};
     const slots = dayEl.querySelectorAll('.meal-slot');
     slots.forEach(slot => {
-      const mealType = slot.dataset.meal;
-      const nameEl = slot.querySelector('.meal-name');
-      nameEl.textContent = plan[mealType] || '—';
-    })
+      const mealNameEl = slot.querySelector('.meal-name');
+
+      const select = document.createElement('select');
+      select.className = 'meal-select';
+
+      const emptyOpt = document.createElement('option');
+      emptyOpt.value = '';
+      emptyOpt.textContent = '—';
+      select.appendChild(emptyOpt);
+
+      availableMeals.forEach(m => {
+        const opt = document.createElement('option');
+        opt.value = m;
+        opt.textContent = m;
+        select.appendChild(opt);
+      });
+
+      // Replace the static meal-name element with the select so dropdowns are visible by default
+      mealNameEl.replaceWith(select);
+
+      // Optionally, you could pre-select a suggested meal per day/slot here.
+      select.addEventListener('change', () => {
+        // keep behavior minimal: the select shows the chosen meal
+      });
+    });
   });
 });
