@@ -20,43 +20,43 @@ body{
 }
 .site-header{
   text-align:center;
-  padding:28px 14px;
+  padding:14px 10px;
 }
 .site-header h1{
   margin:0 0 6px 0;
   color:var(--accent);
 }
-.subtitle{margin:0;color:var(--muted)}
 
-.calendar-wrap{max-width:1200px;margin:18px auto;padding:12px}
+.calendar-wrap{max-width:1200px;margin:12px auto;padding:8px}
 .week-grid{
-  display:grid;
-  grid-template-columns:repeat(7,1fr);
-  gap:14px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  padding:4px 0 8px 0;
+  max-width:1000px;
+  margin:0 auto;
 }
 .day{
   background:linear-gradient(180deg, var(--card), #fffefc);
   border-radius:var(--radius);
-  padding:12px;
+  padding:10px;
   box-shadow:var(--shadow);
   transition:transform .18s ease, box-shadow .18s ease;
+  width:100%;
+  display:block;
 }
-.day:hover{transform:translateY(-6px);box-shadow:0 12px 28px rgba(63,63,63,0.12)}
-.day-name{font-size:1rem;margin:0 0 8px 0;color:#333}
+.day:hover{box-shadow:0 12px 28px rgba(63,63,63,0.12)}
+.day-name{font-size:1.06rem;margin:0 0 8px 0;color:#333}
 
-.meal-slot{border-radius:10px;padding:8px;background:transparent;overflow:hidden;margin-bottom:8px;border:1px solid rgba(0,0,0,0.04)}
+.meal-slot{display:flex;align-items:center;justify-content:space-between;border-radius:8px;padding:6px;background:transparent;overflow:hidden;margin-bottom:6px;border:1px solid rgba(0,0,0,0.04)}
 .meal-slot:last-child{margin-bottom:0}
-.slot-header{
-  font-weight:600;font-size:.9rem;color:var(--accent-2);margin-bottom:6px
-}
-.meal-name{
-  background:linear-gradient(90deg,#fff,#fff9f5);padding:10px;border-radius:8px;font-weight:600;color:#3a3a3a;transition:background .15s ease, transform .12s ease;
-}
-.meal-slot:hover .meal-name{background:linear-gradient(90deg,#fff8f0,#fff3f8);transform:translateY(-3px)}
+.slot-header{font-weight:600;font-size:.9rem;color:var(--accent-2);margin:0;margin-right:8px;flex:0 0 auto}
+.meal-name{background:linear-gradient(90deg,#fff,#fff9f5);padding:8px;border-radius:8px;font-weight:600;color:#3a3a3a;transition:background .15s ease, transform .12s ease;flex:1;text-align:right}
+.meal-slot:hover .meal-name{background:linear-gradient(90deg,#fff8f0,#fff3f8);transform:translateY(-2px)}
+
+.day{margin-bottom:6px}
 
 @media (max-width:900px){
-  .week-grid{grid-template-columns:repeat(2,1fr)}
+  .day{padding:8px}
 }
-@media (max-width:480px){
-  .week-grid{grid-template-columns:repeat(1,1fr)}
-}
+
