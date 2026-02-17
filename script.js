@@ -1,23 +1,49 @@
 document.addEventListener('DOMContentLoaded', ()=>{
-  const meals = {
-    Monday:    {breakfast: 'Greek yogurt & berries', lunch: 'Chicken Caesar wrap', dinner: 'Salmon, rice & greens'},
-    Tuesday:   {breakfast: 'Avocado toast', lunch: 'Mediterranean grain bowl', dinner: 'Stir-fry tofu & veg'},
-    Wednesday: {breakfast: 'Banana pancakes', lunch: 'Tomato soup & grilled cheese', dinner: 'Spaghetti bolognese'},
-    Thursday:  {breakfast: 'Berry smoothie bowl', lunch: 'Quinoa salad', dinner: 'Chicken fajitas'},
-    Friday:    {breakfast: 'Oat porridge with almonds', lunch: 'Sushi rolls', dinner: 'Pizza night (margherita)'},
-    Saturday:  {breakfast: 'Eggs benedict', lunch: 'BLT sandwich', dinner: 'BBQ veggies & halloumi'},
-    Sunday:    {breakfast: 'French toast', lunch: 'Roast chicken & veg', dinner: 'Leftover buffet'}
-  };
+  // no per-day suggestions by default; slots start blank until the user selects
 
-  // Unique list of available meal names
-  const availableMeals = Array.from(new Set(Object.values(meals).flatMap(d => Object.values(d))));
+  // Master meal list with tags for each meal time
+  const masterMeals = [
+    {name: 'Greek yogurt & berries', tags: ['breakfast']},
+    {name: 'Avocado toast', tags: ['breakfast']},
+    {name: 'Banana pancakes', tags: ['breakfast']},
+    {name: 'Berry smoothie bowl', tags: ['breakfast']},
+    {name: 'Oat porridge with almonds', tags: ['breakfast']},
+    {name: 'Eggs benedict', tags: ['breakfast']},
+    {name: 'French toast', tags: ['breakfast']},
 
-  // For each slot, replace the meal-name element with a persistent <select>
+    {name: 'Chicken Caesar wrap', tags: ['lunch']},
+    {name: 'Mediterranean grain bowl', tags: ['lunch']},
+    {name: 'Tomato soup & grilled cheese', tags: ['lunch']},
+    {name: 'Quinoa salad', tags: ['lunch', 'dinner']},
+    {name: 'Sushi rolls', tags: ['lunch', 'dinner']},
+    {name: 'BLT sandwich', tags: ['lunch']},
+    {name: 'Roast chicken & veg', tags: ['lunch', 'dinner']},
+
+    {name: 'Salmon, rice & greens', tags: ['dinner']},
+    {name: 'Stir-fry tofu & veg', tags: ['dinner']},
+    {name: 'Spaghetti bolognese', tags: ['dinner']},
+    {name: 'Chicken fajitas', tags: ['dinner']},
+    {name: 'Pizza night (margherita)', tags: ['dinner']},
+    {name: 'BBQ veggies & halloumi', tags: ['dinner']},
+    {name: 'Leftover buffet', tags: ['dinner']}
+  ];
+
+  // Build index by meal time for quick lookup
+  const mealsByType = {breakfast: [], lunch: [], dinner: []};
+  masterMeals.forEach(m => {
+    m.tags.forEach(t => {
+      if (mealsByType[t]) mealsByType[t].push(m.name);
+    });
+  });
+
+  // For each slot, replace the meal-name element with a persistent <select> showing only relevant meals
   const dayEls = document.querySelectorAll('.day');
   dayEls.forEach(dayEl => {
     const slots = dayEl.querySelectorAll('.meal-slot');
+    const dayName = dayEl.dataset.day;
     slots.forEach(slot => {
       const mealNameEl = slot.querySelector('.meal-name');
+      const type = slot.dataset.meal; // 'breakfast'|'lunch'|'dinner'
 
       const select = document.createElement('select');
       select.className = 'meal-select';
@@ -27,20 +53,22 @@ document.addEventListener('DOMContentLoaded', ()=>{
       emptyOpt.textContent = '—';
       select.appendChild(emptyOpt);
 
-      availableMeals.forEach(m => {
+      // populate only meals relevant to this slot's type
+      const choices = mealsByType[type] || [];
+      choices.forEach(m => {
         const opt = document.createElement('option');
         opt.value = m;
         opt.textContent = m;
         select.appendChild(opt);
       });
 
+      // start blank by default (user chooses from the dropdown)
+
       // Replace the static meal-name element with the select so dropdowns are visible by default
       mealNameEl.replaceWith(select);
 
-      // Optionally, you could pre-select a suggested meal per day/slot here.
-      select.addEventListener('change', () => {
-        // keep behavior minimal: the select shows the chosen meal
-      });
+      // keep behavior minimal; select's visible value is the chosen meal
+      select.addEventListener('change', () => {});
     });
   });
 });
